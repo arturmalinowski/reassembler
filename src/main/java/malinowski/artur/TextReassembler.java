@@ -3,13 +3,14 @@ package malinowski.artur;
 import malinowski.artur.domain.Pair;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static java.util.Arrays.asList;
 
 public class TextReassembler {
 
     private Comparator comparator;
-    private List<String> fragments;
+
     private List<Pair> pairs = new ArrayList<>();
 
     public TextReassembler(Comparator comparator) {
@@ -18,14 +19,15 @@ public class TextReassembler {
 
     public String reassemble(String fragment) {
         String[] textSplit = fragment.split(";");
-        fragments = new ArrayList<>(Arrays.asList(textSplit));
 
-        String answer = reassembleText();
+        List<String> fragments = new ArrayList<>(asList(textSplit));
+
+        String answer = reassembleText(fragments);
 
         return answer;
     }
 
-    public String reassembleText() {
+    public String reassembleText(List<String> fragments) {
         for (int i = 0; i < fragments.size(); i++) {
             for (int j = i + 1; j < fragments.size(); j++) {
                 String first = fragments.get(i);
@@ -45,13 +47,13 @@ public class TextReassembler {
 
         Pair pairWithLargestSize = getPairWithLargestSize();
 
-        removeUsedFragmentsAndAddNew(pairWithLargestSize);
+        removeUsedFragmentsAndAddNew(pairWithLargestSize, fragments);
 
         if (fragments.size() == 1) {
             return fragments.get(0);
         } else {
             pairs.clear();
-            return reassembleText();
+            return reassembleText(fragments);
         }
     }
 
@@ -70,7 +72,7 @@ public class TextReassembler {
         return left + right.substring(index + 1);
     }
 
-    private void removeUsedFragmentsAndAddNew(Pair pairWithLargestSize) {
+    private void removeUsedFragmentsAndAddNew(Pair pairWithLargestSize, List<String> fragments) {
         fragments.remove(pairWithLargestSize.getLeft());
         fragments.remove(pairWithLargestSize.getRight());
 

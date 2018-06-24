@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
 
 public class TextReassemblerTest {
 
@@ -14,7 +13,7 @@ public class TextReassemblerTest {
 
     @Before
     public void setUp() {
-        underTest = new TextReassembler(mock(Comparator.class));
+        underTest = new TextReassembler(new Comparator());
     }
 
     @Test

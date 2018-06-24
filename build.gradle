@@ -15,3 +15,15 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.19.0'
 }
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compileClasspath.files.collect {"$it.name"}.join(' '),
+                'Main-Class': 'malinowski.artur.ReassemblerRunner'
+        )
+    }
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

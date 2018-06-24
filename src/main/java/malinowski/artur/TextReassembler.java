@@ -11,8 +11,6 @@ public class TextReassembler {
 
     private Comparator comparator;
 
-    private List<Pair> pairs = new ArrayList<>();
-
     public TextReassembler(Comparator comparator) {
         this.comparator = comparator;
     }
@@ -28,24 +26,9 @@ public class TextReassembler {
     }
 
     public String reassembleText(List<String> fragments) {
-        for (int i = 0; i < fragments.size(); i++) {
-            for (int j = i + 1; j < fragments.size(); j++) {
-                String first = fragments.get(i);
-                String second = fragments.get(j);
+        List<Pair> pairs = getAllPairsFrom(fragments);
 
-                if(comparator.checkIfOverlaps(first, second)) {
-                    pairs.add(
-                            new Pair(first, second, comparator.findOverlapSizeBetween(second, first))
-                    );
-                } else if (comparator.checkIfOverlaps(second, first)) {
-                    pairs.add
-                            (new Pair(second, first, comparator.findOverlapSizeBetween(first, second))
-                    );
-                }
-            }
-        }
-
-        Pair pairWithLargestSize = getPairWithLargestSize();
+        Pair pairWithLargestSize = getPairWithLargestSize(pairs);
 
         removeUsedFragmentsAndAddNew(pairWithLargestSize, fragments);
 
@@ -81,7 +64,29 @@ public class TextReassembler {
         fragments.add(joinedStrings);
     }
 
-    private Pair getPairWithLargestSize() {
+    private List<Pair> getAllPairsFrom(List<String> fragments) {
+        List<Pair> pairs = new ArrayList<>();
+
+        for (int i = 0; i < fragments.size(); i++) {
+            for (int j = i + 1; j < fragments.size(); j++) {
+                String first = fragments.get(i);
+                String second = fragments.get(j);
+
+                if(comparator.checkIfOverlaps(first, second)) {
+                    pairs.add(
+                            new Pair(first, second, comparator.findOverlapSizeBetween(second, first))
+                    );
+                } else if (comparator.checkIfOverlaps(second, first)) {
+                    pairs.add
+                            (new Pair(second, first, comparator.findOverlapSizeBetween(first, second))
+                            );
+                }
+            }
+        }
+        return pairs;
+    }
+
+    private Pair getPairWithLargestSize(List<Pair> pairs) {
         int index = 0;
         int currentSize = 0;
         for (int i = 0; i < pairs.size(); i++) {

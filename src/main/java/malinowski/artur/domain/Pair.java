@@ -2,9 +2,9 @@ package malinowski.artur.domain;
 
 public class Pair {
 
-    private String left;
-    private String right;
-    private Integer size;
+    private final String left;
+    private final String right;
+    private final Integer size;
 
     public Pair(String left, String right, Integer size) {
         this.left = left;

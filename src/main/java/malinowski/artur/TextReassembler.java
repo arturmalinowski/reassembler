@@ -31,11 +31,11 @@ public class TextReassembler {
                 String first = fragments.get(i);
                 String second = fragments.get(j);
 
-                if(comparator.checkIfLeftOverlapsRight(first, second)) {
+                if(comparator.checkIfOverlaps(first, second)) {
                     pairs.add(
                             new Pair(first, second, comparator.findOverlapSizeBetween(second, first))
                     );
-                } else if (comparator.checkIfRightOverlapsLeft(first, second)) {
+                } else if (comparator.checkIfOverlaps(second, first)) {
                     pairs.add
                             (new Pair(second, first, comparator.findOverlapSizeBetween(first, second))
                     );

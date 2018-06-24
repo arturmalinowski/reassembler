@@ -18,35 +18,14 @@ public class Comparator {
         return maxOverlap;
     }
 
-    public boolean checkIfLeftOverlapsRight(String left, String right) {
+    public boolean checkIfOverlaps(String left, String right) {
         if(left.contains(right)) {
             return true;
         }
-        if (left.length() >= right.length()) {
-            return checkForOverlapWhenFirstArgIsLarger(left, right);
-        } else
-            return checkForOverlapWhenSecondArgIsLarger(left, right);
+        return checkForOverlapBetween(left, right);
     }
 
-    public boolean checkIfRightOverlapsLeft(String left, String right) {
-        if(right.contains(left)) {
-            return true;
-        }
-        if (right.length() >= left.length()) {
-            return checkForOverlapWhenFirstArgIsLarger(right, left);
-        } else {
-            return checkForOverlapWhenSecondArgIsLarger(right, left);
-        }
-    }
-
-    private boolean checkForOverlapWhenFirstArgIsLarger(String first, String second) {
-        String substring = first.substring(0, findOverlapSizeBetween(second, first));
-        if (substring.equals("")) return false;
-
-        return second.endsWith(substring);
-    }
-
-    private boolean checkForOverlapWhenSecondArgIsLarger(String first, String second) {
+    private boolean checkForOverlapBetween(String first, String second) {
         String substring = first.substring(0, findOverlapSizeBetween(second, first));
         if (substring.equals("")) return false;
 

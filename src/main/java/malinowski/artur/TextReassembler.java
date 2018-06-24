@@ -12,8 +12,8 @@ public class TextReassembler {
     private List<String> fragments;
     private List<Pair> pairs = new ArrayList<>();
 
-    public TextReassembler() {
-        comparator = new Comparator();
+    public TextReassembler(Comparator comparator) {
+        this.comparator = comparator;
     }
 
     public String reassemble(String fragment) {

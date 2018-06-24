@@ -6,7 +6,7 @@ import java.io.FileReader;
 
 public class ReassemblerRunner {
     public static void main(String[] args) {
-        TextReassembler textReassembler = new TextReassembler();
+        TextReassembler textReassembler = new TextReassembler(new Comparator());
 
         try (BufferedReader in = new BufferedReader(new FileReader(args[0]))) {
             String fragmentProblem;

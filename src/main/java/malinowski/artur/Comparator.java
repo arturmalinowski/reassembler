@@ -3,7 +3,6 @@ package malinowski.artur;
 public class Comparator {
 
     public Comparator() {
-
     }
 
     public Integer findOverlapSizeBetween(String left, String right) {

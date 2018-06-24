@@ -20,9 +20,7 @@ public class TextReassembler {
 
         List<String> fragments = new ArrayList<>(asList(textSplit));
 
-        String answer = reassembleText(fragments);
-
-        return answer;
+        return reassembleText(fragments);
     }
 
     public String reassembleText(List<String> fragments) {
